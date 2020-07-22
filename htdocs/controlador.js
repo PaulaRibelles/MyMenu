@@ -1,6 +1,6 @@
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function ($scope,$sce, $http) {
-    $scope.categoria = ''; 
+app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
+    $scope.categoria = '';
 
     $scope.slickParams = {
         dots: true,
@@ -11,9 +11,9 @@ app.controller('myCtrl', function ($scope,$sce, $http) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,        
+        autoplaySpeed: 2000,
     };
-          
+
     $scope.productos = [{
         nombre: "Langosta",
         precio: 15.95,
@@ -150,27 +150,32 @@ app.controller('myCtrl', function ($scope,$sce, $http) {
     ];
 
     $scope.idioma = 1;
-       
-    $http.get("http://localhost/get_idiomas.php").then(function(datos) 
-    { 
-        $scope.selectidiom = datos.data; 
+
+    $http.get("http://localhost/get_idiomas.php").then(function (datos) {
+        $scope.selectidiom = datos.data;
         console.log($scope.selectidiom);
     });
 
-    $http.get("http://localhost/get_restaurantes.php").then(function(datos) 
-    { 
-        $scope.restaurantes = datos.data; 
-        $scope.restaurantes[0].imagenes = ["https://cdn.pixabay.com/photo/2015/09/02/12/35/bar-918541__340.jpg","https://cdn.pixabay.com/photo/2017/07/31/11/22/people-2557408__340.jpg","https://cdn.pixabay.com/photo/2016/11/18/22/21/architecture-1837150__340.jpg","https://cdn.pixabay.com/photo/2015/03/26/09/54/restaurant-690569__340.jpg"];
-        $scope.restaurantes[1].imagenes = ["https://cdn.pixabay.com/photo/2016/11/29/12/54/bar-1869656__340.jpg","https://cdn.pixabay.com/photo/2015/03/26/10/28/restaurant-691397__340.jpg","https://cdn.pixabay.com/photo/2015/04/20/13/30/kitchen-731351__340.jpg","https://cdn.pixabay.com/photo/2015/05/15/14/55/cafe-768771__340.jpg"];
+    $http.get("http://localhost/get_restaurantes.php").then(function (datos) {
+        $scope.restaurantes = datos.data;
 
-        $scope.restaurantes.forEach(restaurante => {restaurante.ubicacion = $sce.trustAsResourceUrl (restaurante.ubicacion);});
+        $scope.restaurantes.forEach(restaurante => {
+            restaurante.ubicacion = $sce.trustAsResourceUrl(restaurante.ubicacion);
+            $http.get("http://localhost/get_imagenes.php?restaurante=" + restaurante.id).then(function (datos) {
+                $timeout(function () {
+                    restaurante.imagenes = datos.data; 
+                    console.log(datos.data)
+                }, 0);
+            });
+        });
 
         console.log($scope.restaurantes);
+
+        $timeout(function () {
+            $('select').selectpicker({ liveSearch: true });
+        }, 500);
     });
 
     $scope.numrest = 0;
-
-  //  $scope.restaurantes[1].ubicacion = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49271.06757909459!2d-0.4043381403895641!3d39.48193921085968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8607121c55502513!2sCafeter%C3%ADa%20Castillo!5e0!3m2!1ses!2ses!4v1592843076612!5m2!1ses!2ses');
- // $scope.restaurantes[0].ubicacion = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d769.9302746499064!2d-0.32833917074802915!3d39.47562903391004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDI4JzMyLjMiTiAwwrAxOSc0MC4xIlc!5e0!3m2!1ses!2ses!4v1592842908116!5m2!1ses!2ses');
 
 });
