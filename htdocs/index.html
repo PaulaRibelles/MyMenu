@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MyMenu restauration App</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/favicon.svg" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!--Angular files-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+
+  <!-- =======================================================
+  * Template Name: Delicious - v2.0.2
+  * Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/ 
+  ======================================================== -->
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+
+  <!--Navbar idioma bottom-->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">
+    <!-- Brand/logo -->
+    <a class="navbar-brand">
+
+      <img src="https://image.flaticon.com/icons/png/512/1940/1940634.png" alt="logo" style="width:40px;">
+    </a>
+    <!-- Links Idioma Bottom -->
+    <ul class="navbar-nav">
+      <select ng-model="idioma">
+        <option ng-repeat="id in selectidiom" ng-value="{{$index}}" class="form-control">{{id.nombre}}</option>
+      </select>
+      <!-- =======================================================
+      <li class="nav-item"><a href="">{{texto[3][idioma]}}</a></li>
+      <li class="nav-item"><a href="#" ng-click="idioma=1"><img
+            src="https://image.flaticon.com/icons/svg/323/323365.svg" class="d-inline-block align-top" alt="lang eng"
+            style="width:40px;"></a></li>
+      <li class="nav-item"><a href="#" ng-click="idioma=0"><img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/United-kingdom_flag_icon_round.svg/1200px-United-kingdom_flag_icon_round.svg.png"
+            class="d-inline-block align-top" alt="lang eng" style="width:40px;"></a></li>
+      <li class="nav-item"><a href="#" ng-click="idioma=2"><img
+            src="https://cdn.icon-icons.com/icons2/1531/PNG/512/3253480-catalonia-icon-flag_106770.png"
+            class="d-inline-block align-top" alt="" style="width:40px;"></a></li>
+        ======================================================== -->
+    </ul>
+  </nav>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a><span>MyMenu</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="#about" class="ml-2">{{texto[4][idioma]}}</a>
+        <a href="#menu" class="ml-2">{{texto[5][idioma]}}</a>
+        <a href="#events" class="ml-2">{{texto[6][idioma]}}</a>
+        <a href="#" class="ml-2">Contact</a>
+        <select ng-model="numrest" class="form-control">
+          <option ng-repeat="restaurante in restaurantes" ng-value="{{$index}}">{{restaurante.nombre}}</option>
+        </select>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+
+  <div ng-repeat="restaurante in restaurantes">
+    <div data="restaurante.imagenes.length" slick-slider="{{slickParams}}" ng-if="$index==numrest && restaurante.imagenes">
+      <div class="ml-3" ng-repeat="imagen in restaurante.imagenes">
+        <img ng-src="{{imagen}}" style="width:100%">
+      </div>
+    </div>
+  </div>
+
+  <!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>{{texto[0][idioma]}}</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters">
+              <li ng-click="categoria=''">{{texto[13][idioma]}}</li>
+              <li ng-click="categoria='Entrantes'">{{texto[14][idioma]}}</li>
+              <li ng-click="categoria='Ensaladas'">{{texto[15][idioma]}}</li>
+              <li ng-click="categoria='Bocadillos'">{{texto[16][idioma]}}</li>
+              <li ng-click="categoria='Tartas'">{{texto[17][idioma]}}</li>
+              <li ng-click="categoria='Bebidas'">{{texto[18][idioma]}}</li>
+              <li ng-click="categoria='Especialidad de la casa'">{{texto[19][idioma]}}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row menu-container">
+
+          <div class="col-lg-6 menu-item filter-starters" ng-repeat="producto in productos">
+            <div ng-if="producto.categoria==categoria || categoria==''">
+              <div class="menu-content">
+                <a href="#">{{producto.nombre}}</a><span>{{producto.precio}}</span>
+              </div>
+              <div class="menu-ingredients">
+                {{producto.ingredientes}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Menu Section -->
+
+    <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>{{texto[1][idioma]}}</h2>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae
+            autem.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1">{{texto[10][idioma]}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-2">{{texto[11][idioma]}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-3">{{texto[12][idioma]}}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tab-1">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{texto[10][idioma]}}</h3>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="assets/img/specials-1.jpg" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-2">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{texto[11][idioma]}}</h3>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="assets/img/specials-2.jpg" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-3">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>{{texto[12][idioma]}}</h3>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="assets/img/specials-3.jpg" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- End Specials Section -->
+
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events" ng-if="hayeventos">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Organize Your <span>Events</span> in our Restaurant</h2>
+        </div>
+
+        <div class="owl-carousel events-carousel">
+
+          <div class="row event-item">
+            <div class="col-lg-6">
+              <img src="assets/img/event-birthday.jpg" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 content">
+              <h3>Fiestas de cumpleaños</h3>
+              <div class="price">
+                <p><span>189€</span></p>
+              </div>
+              <p class="font-italic">
+                Celebra tu fiesta de cumpleaños con nosotros. Pregúntano sobre disponibilidad.
+              </p>
+              <ul>
+                <li><i class="icofont-check-circled"></i> Hacemos tartas por encargo.</li>
+                <li><i class="icofont-check-circled"></i> Decoración temática.
+                </li>
+                <li><i class="icofont-check-circled"></i> Disponemos de reservados para fiestas privadas.</li>
+              </ul>
+            
+            </div>
+          </div>
+
+          <div class="row event-item">
+            <div class="col-lg-6">
+              <img src="assets/img/event-private.jpg" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 content">
+              <h3>Private Parties</h3>
+              <div class="price">
+                <p><span>$290</span></p>
+              </div>
+              <p class="font-italic">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore
+                magna aliqua.
+              </p>
+              <ul>
+                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.
+                </li>
+                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              </ul>
+              <p>
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur
+              </p>
+            </div>
+          </div>
+
+          <div class="row event-item">
+            <div class="col-lg-6">
+              <img src="assets/img/event-custom.jpg" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 content">
+              <h3>Custom Parties</h3>
+              <div class="price">
+                <p><span>$99</span></p>
+              </div>
+              <p class="font-italic">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore
+                magna aliqua.
+              </p>
+              <ul>
+                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.
+                </li>
+                <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              </ul>
+              <p>
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Events Section -->
+
+    <!-- ======= Book A Table Section ======= -->
+    <section id="book-a-table" class="book-a-table">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>{{texto[2][idioma]}}</h2>
+          <p>{{texto[7][idioma]}}</p>
+        </div>
+
+        <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+          <div class="form-row">
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4"
+                data-msg="Por favor, coloque un mínimo de 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                data-rule="email" data-msg="Email incorrecto">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="Número de teléfono"
+                data-rule="minlen:4" data-msg="Por favor, coloque un mínimo de 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="text" name="date" class="form-control" id="date" placeholder="Fecha" data-rule="minlen:4"
+                data-msg="Por favor, indique una fecha con 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="text" class="form-control" name="time" id="time" placeholder="Hora" data-rule="minlen:4"
+                data-msg="Por favor, indique una hora con 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="number" class="form-control" name="people" id="people" placeholder="Nº de personas"
+                data-rule="minlen:1" data-msg="Por favor, no deje este campo vacío">
+              <div class="Correcto"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+            <div class="Correcto"></div>
+          </div>
+          <div class="mb-3">
+            <div class="loading">Procesando</div>
+            <div class="error-message"></div>
+            <div class="sent-message">{{texto[8][idioma]}}</div>
+          </div>
+          <div class="text-center"><button type="submit">Enviar</button></div>
+        </form>
+
+      </div>
+    </section><!-- End Book A Table Section -->
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>Algunas fotos <span>sobre nuestro restaurante</span></h2>
+          <p>Aquí podéis ver algunas fotos de nuestro local y algunos de nuestros empleados.</p>
+        </div>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-2.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-3.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-4.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-5.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-6.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-7.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-8.jpg" class="venobox" data-gall="gallery-item">
+                <img src="assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Gallery Section -->
+
+
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+
+        <div class="owl-carousel testimonials-carousel">
+
+          <div class="testimonial-item" ng-repeat="opinion in opiniones">
+            <img ng-src="{{opinion.imagen}}" class="testimonial-img" alt="">
+            <h3>{{opinion.nombre}}</h3>
+            <h4>{{opinion.work}}</h4>
+            <div class="stars">
+              <i class="icofont-star" ng-repeat="x in [].constructor(opinion.puntuacion) track by $index"></i>
+            </div>
+            <p>
+              <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+              {{opinion.comentario}}
+              <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Testimonials Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="map">
+          <iframe style="border:0; width: 100%; height: 350px;" ng-src="{{restaurantes[numrest].ubicacion}}"
+            frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="section-title">
+          <h2><span>Contacto</span> </h2>
+          <p>Puedes contactar con nosotros dejando un mensaje o llamando por teléfono.</p>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+
+        <div class="info-wrap">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 info">
+              <i class="icofont-google-map"></i>
+              <h4>Localización:</h4>
+              <p>Avinguda de la Malva-rosa, 58<br>Valencia, 46000</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+              <i class="icofont-clock-time icofont-rotate-90"></i>
+              <h4>Horario:</h4>
+              <p>De lunes a sábado:<br>11:00 AM - 2300 PM</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+              <i class="icofont-envelope"></i>
+              <h4>Email:</h4>
+              <p>info@example.com<br>contact@example.com</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 info mt-4 mt-lg-0">
+              <i class="icofont-phone"></i>
+              <h4>Call:</h4>
+              <p>+34 6589 55488 51<br>+34 7589 22475 14</p>
+            </div>
+          </div>
+        </div>
+
+        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4"
+                data-msg="Please enter at least 4 chars" />
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                data-rule="email" data-msg="Please enter a valid email" />
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+              data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+            <div class="validate"></div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="message" rows="5" data-rule="required"
+              data-msg="Please write something for us" placeholder="Message"></textarea>
+            <div class="validate"></div>
+          </div>
+          <div class="mb-3">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Tu mensaje ha sido enviado. ¡Gracias!</div>
+          </div>
+          <div class="text-center"><button type="submit">Enviar</button></div>
+        </form>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>MyMenu</h3>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>MyMenu</span></strong>. All Rights Reserved
+      </div>
+    </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+
+  <!--Controlador JS-->
+  <script src="controlador.js"></script>
+  <script src="directivas.js"></script>
+</body>
+
+</html>
