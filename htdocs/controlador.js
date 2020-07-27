@@ -8,6 +8,11 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
     $scope.time = '';
     $scope.people = '';
     $scope.message = '';
+    $scope.subject = '';
+    $scope.name2 = '';
+    $scope.email2 = '';
+    $scope.message2 = '';
+   
 
     $scope.slickParams = {
         dots: true,
@@ -22,105 +27,35 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
     };
 
     $scope.enviar = function () {
-        $http.post("http://localhost/put_reservas.php", { nombre: $scope.name, telefono: $scope.phone, email: $scope.email, fecha: $scope.date.toISOString().substr(0,10), hora: $scope.time, personas: $scope.people, mensaje: $scope.message }).then(function (datos) {
+        $http.post("http://localhost/put_reservas.php", { nombre: $scope.name, telefono: $scope.phone, email: $scope.email, fecha: $scope.date.toISOString().substr(0, 10), hora: $scope.time, personas: $scope.people, mensaje: $scope.message }).then(function (datos) {
             $scope.reservas = datos.data;
             console.log($scope.reservas);
+            Swal.fire({
+               title: 'Reserva realizada',
+               text: 'Puede confirmar su reserva en la lista',
+                icon: 'success',
+                confirmButtonColor: "#ffb03b",
+            })
         });
     }
+
+    $scope.contactar = function () {
+        $http.post("http://localhost/put_contacto.php", { nombre: $scope.name2, subject: $scope.subject, email: $scope.email2,  mensaje: $scope.message2 }).then(function (datos) {
+            $scope.contactar = datos.data;
+            console.log($scope.contactar);
+            Swal.fire({
+               title: 'Mensaje enviado',
+               text: 'Pronto nos pondremos en contacto con usted',
+                icon:'success',
+                confirmButtonColor: "#ffb03b",
+             })
+        });
+    }
+
     $http.get("http://localhost/get_reservas.php").then(function (datos) {
         $scope.reservas = datos.data;
         console.log($scope.reservas);
     });
-
-
-    $scope.productos = [{
-        nombre: "Langosta",
-        precio: 15.95,
-        ingredientes: "Langosta hervida con especias",
-        categoria: "Especialidad de la casa",
-    },
-    {
-        nombre: "Ensaladilla casera con pétalos de salmón",
-        precio: 6.50,
-        ingredientes: "Patatas, huevo duro, zanahoria, pétalos de salmón y salsa mayonesa",
-        categoria: "Especialidad de la casa",
-    },
-    {
-        nombre: "Milhojas de calabacín",
-        precio: 7.95,
-        ingredientes: "Milhojas de calabacín con rulo de cabra y salsa de arandanos",
-        categoria: "Especialidad de la casa",
-    },
-    {
-        nombre: "Patatas bravas",
-        precio: 4.95,
-        ingredientes: "Patatas fritas en dados con especias, salsa brava y ajoaceite",
-        categoria: "Entrantes",
-    },
-    {
-        nombre: "Tiras de pollo",
-        precio: 8.00,
-        ingredientes: "Tiras de pollo crujiente con salsa de queso",
-        categoria: "Entrantes",
-    },
-    {
-        nombre: "Crujiente de berenjena",
-        precio: 6.00,
-        ingredientes: "Crujiente de berenjena con salsa a la miel",
-        categoria: "Entrantes",
-    },
-    {
-        nombre: "Ensalada cesar",
-        precio: 8.95,
-        ingredientes: "Lechuga, tomate, pollo en tiras, cebolla frita, rucula, queso de cabra, salsa cesar",
-        categoria: "Ensaladas",
-
-    },
-    {
-        nombre: "Ensalada Poke",
-        precio: 10.05,
-        ingredientes: "Brotes de soja, mango, aguacate, pepino y alga wakame",
-        categoria: "Ensaladas",
-
-    },
-    {
-        nombre: "Ensalada Special one",
-        precio: 8.95,
-        ingredientes: "espinacas baby, manzana, nueces, pasas, parmesano con vinagreta de sidra",
-        categoria: "Ensaladas",
-
-    },
-    {
-        nombre: "Bocadillo Español",
-        precio: 6.25,
-        ingredientes: "Tortilla de patata y salsa a elegir",
-        categoria: "Bocadillos",
-    },
-    {
-        nombre: "The vegan",
-        precio: 7.25,
-        ingredientes: "Hamburguesa de soja con verduras de temporada y salsa de tofu",
-        categoria: "Bocadillos",
-    },
-    {
-        nombre: "Mixou",
-        precio: 6.50,
-        ingredientes: "Pechuga de pollo, lechuga, tomate y salsa guacamole",
-        categoria: "Bocadillos",
-    },
-    {
-        nombre: "Tarta de queso",
-        precio: 8,
-        ingredientes: "Cheescake",
-        categoria: "Tartas",
-    },
-    {
-        nombre: "Cerveza Turia",
-        precio: 2.5,
-        ingredientes: "Cerveza tostada",
-        categoria: "Bebidas",
-    }
-    ];
 
     $scope.opiniones = [{
         nombre: "Pepa",
@@ -200,5 +135,22 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
     });
 
     $scope.numrest = 0;
+    $http.get("http://localhost/get_carta.php?restaurante=" + $scope.numrest).then(function (datos) {
+        $timeout(function () {
+            $scope.productos = datos.data;
+            console.log($scope.productos);
+        }, 0);
+    });
+    $scope.$watch("numrest", function (newValue, oldValue) {
+        if (newValue != oldValue) {
+            $http.get("http://localhost/get_carta.php?restaurante=" + $scope.numrest).then(function (datos) {
+                $timeout(function () {
+                    $scope.productos = datos.data;
+                    console.log($scope.productos);
+                }, 0);
+            });
+
+        }
+    });
 
 });

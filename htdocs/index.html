@@ -26,6 +26,7 @@
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <style>
     .dropdown-item.active,
     .dropdown-item:active {
@@ -523,23 +524,23 @@
         <form action="forms/contact.php" method="post" role="form" class="php-email-form">
           <div class="form-row">
             <div class="col-md-6 form-group">
-              <input type="text" name="name" class="form-control" id="name2" placeholder="Your Name"
+              <input type="text" ng-model="name2" name="name2" class="form-control" id="name2" placeholder="Your Name"
                 data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
               <div class="validate"></div>
             </div>
             <div class="col-md-6 form-group">
-              <input type="email" class="form-control" name="email" id="email2" placeholder="Your Email"
+              <input type="email" class="form-control" ng-model="email2" name="email2" id="email2" placeholder="Your Email"
                 data-rule="email" data-msg="Please enter a valid email" />
               <div class="validate"></div>
             </div>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+            <input type="text" class="form-control" ng-model="subject" name="subject" id="subject" placeholder="Subject"
               data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
             <div class="validate"></div>
           </div>
           <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" data-rule="required"
+            <textarea class="form-control" ng-model="message2" name="message2" rows="5" data-rule="required"
               data-msg="Please write something for us" placeholder="Message"></textarea>
             <div class="validate"></div>
           </div>
@@ -548,7 +549,7 @@
             <div class="error-message"></div>
             <div class="sent-message">Tu mensaje ha sido enviado. ¡Gracias!</div>
           </div>
-          <div class="text-center"><button type="submit">Enviar</button></div>
+          <div class="text-center"><button type="button" ng-click="contactar()">Enviar</button></div>
         </form>
 
       </div>
