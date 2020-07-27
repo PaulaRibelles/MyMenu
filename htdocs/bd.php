@@ -10,4 +10,9 @@ function consultar($consulta) {
     }
     echo json_encode($json);
 }
+function actualizar($consulta) { 
+    $bd = new mysqli("localhost", 'root', '', "restaurantes");
+     $bd->query($consulta);
+    
+}
 ?>

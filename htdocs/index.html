@@ -38,6 +38,7 @@
 
   <!--Angular files-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.8.0/angular-locale_es-es.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
@@ -65,7 +66,7 @@
       <select class="selectpicker" data-live-search="true" ng-model="idioma">
         <option ng-repeat="id in selectidiom" ng-value="{{$index}}" class="form-control">{{id.nombre}}</option>
       </select>
-     
+
     </ul>
   </nav>
 
@@ -315,38 +316,39 @@
         <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
           <div class="form-row">
             <div class="col-lg-4 col-md-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4"
-                data-msg="Por favor, coloque un mínimo de 4 carácteres">
-              <div class="Correcto"></div>
-            </div>
-            <div class="col-lg-4 col-md-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email"
-                data-msg="Email incorrecto">
-              <div class="Correcto"></div>
-            </div>
-            <div class="col-lg-4 col-md-6 form-group">
-              <input type="text" class="form-control" name="phone" id="phone" placeholder="Número de teléfono"
+              <input type="text" name="name" class="form-control" id="name" ng-model="name" placeholder="Nombre"
                 data-rule="minlen:4" data-msg="Por favor, coloque un mínimo de 4 carácteres">
               <div class="Correcto"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group">
-              <input type="text" name="date" class="form-control" id="date" placeholder="Fecha" data-rule="minlen:4"
-                data-msg="Por favor, indique una fecha con 4 carácteres">
+              <input type="email" class="form-control" name="email" id="email" ng-model="email" placeholder="Email"
+                data-rule="email" data-msg="Email incorrecto">
               <div class="Correcto"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group">
-              <input type="text" class="form-control" name="time" id="time" placeholder="Hora" data-rule="minlen:4"
-                data-msg="Por favor, indique una hora con 4 carácteres">
+              <input type="text" class="form-control" name="phone" id="phone" ng-model="phone"
+                placeholder="Número de teléfono" data-rule="minlen:4"
+                data-msg="Por favor, coloque un mínimo de 4 carácteres">
               <div class="Correcto"></div>
             </div>
             <div class="col-lg-4 col-md-6 form-group">
-              <input type="number" class="form-control" name="people" id="people" placeholder="Nº de personas"
-                data-rule="minlen:1" data-msg="Por favor, no deje este campo vacío">
+              <input type="date" name="date" class="form-control" id="date" ng-model="date" placeholder="Fecha"
+                data-rule="minlen:4" data-msg="Por favor, indique una fecha con 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="time" class="form-control" name="time" id="time" ng-model="time" placeholder="Hora"
+                data-rule="minlen:4" data-msg="Por favor, indique una hora con 4 carácteres">
+              <div class="Correcto"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 form-group">
+              <input type="number" class="form-control" name="people" id="people" ng-model="people"
+                placeholder="Nº de personas" data-rule="minlen:1" data-msg="Por favor, no deje este campo vacío">
               <div class="Correcto"></div>
             </div>
           </div>
           <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" placeholder="Mensaje"></textarea>
+            <textarea class="form-control" name="message" ng-model="message" rows="5" placeholder="Mensaje"></textarea>
             <div class="Correcto"></div>
           </div>
           <div class="mb-3">
@@ -354,9 +356,14 @@
             <div class="error-message"></div>
             <div class="sent-message">{{texto[8][idioma]}}</div>
           </div>
-          <div class="text-center"><button type="submit">Enviar</button></div>
+          <div class="text-center"><button type="button" ng-click="enviar()">Enviar</button></div>
         </form>
 
+      </div>
+      <div class="container">
+        <ul>
+          <li ng-repeat="reserva in reservas">{{reserva.nombre}}, {{reserva.fecha| date : "dd / MMMM / y"}}, {{reserva.hora| date: "HH:mm"}}, {{reserva.personas}}</li>
+        </ul>
       </div>
     </section><!-- End Book A Table Section -->
 
@@ -439,7 +446,7 @@
 
       </div>
     </section>
-   <!-- End Gallery Section -->
+    <!-- End Gallery Section -->
 
 
 
