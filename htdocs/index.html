@@ -65,18 +65,7 @@
       <select class="selectpicker" data-live-search="true" ng-model="idioma">
         <option ng-repeat="id in selectidiom" ng-value="{{$index}}" class="form-control">{{id.nombre}}</option>
       </select>
-      <!-- =======================================================
-      <li class="nav-item"><a href="">{{texto[3][idioma]}}</a></li>
-      <li class="nav-item"><a href="#" ng-click="idioma=1"><img
-            src="https://image.flaticon.com/icons/svg/323/323365.svg" class="d-inline-block align-top" alt="lang eng"
-            style="width:40px;"></a></li>
-      <li class="nav-item"><a href="#" ng-click="idioma=0"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/United-kingdom_flag_icon_round.svg/1200px-United-kingdom_flag_icon_round.svg.png"
-            class="d-inline-block align-top" alt="lang eng" style="width:40px;"></a></li>
-      <li class="nav-item"><a href="#" ng-click="idioma=2"><img
-            src="https://cdn.icon-icons.com/icons2/1531/PNG/512/3253480-catalonia-icon-flag_106770.png"
-            class="d-inline-block align-top" alt="" style="width:40px;"></a></li>
-        ======================================================== -->
+     
     </ul>
   </nav>
 
@@ -91,10 +80,11 @@
       </div>
 
       <div id="mySidenav" class="sidenav">
-        <a href="#about" class="ml-2">{{texto[4][idioma]}}</a>
+        <!--<a href="#about" class="ml-2">{{texto[4][idioma]}}</a> -->
         <a href="#menu" class="ml-2">{{texto[5][idioma]}}</a>
-        <a href="#events" class="ml-2">{{texto[6][idioma]}}</a>
-        <a href="#" class="ml-2">Contacto</a>
+        <!--<a href="#events" class="ml-2">{{texto[6][idioma]}}</a> -->
+        <a href="#book-a-table" class="ml-2">{{texto[20][idioma]}}</a>
+        <a href="#contact" class="ml-2">{{texto[22][idioma]}}</a>
         <select class="selectpicker" data-live-search="true" ng-model="numrest" class="form-control">
           <option ng-repeat="restaurante in restaurantes" ng-value="{{$index}}">{{restaurante.nombre}}</option>
         </select>
@@ -164,7 +154,7 @@
 
         <div class="section-title">
           <h2>{{texto[1][idioma]}}</h2>
-          <p>Os recomendamos nuestras especialidades</p>
+          <p>{{texto[21][idioma]}}</p>
         </div>
 
         <div class="row">
@@ -370,12 +360,12 @@
       </div>
     </section><!-- End Book A Table Section -->
 
-    <!-- ======= Gallery Section ======= 
+    <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
       <div class="container-fluid">
 
         <div class="section-title">
-          <h2>Algunas fotos <span>sobre nuestro restaurante</span></h2>
+          <h2>Algunas <span>fotos</span> sobre nuestro restaurante</h2>
           <p>Aquí podéis ver algunas fotos de nuestro local y algunos de nuestros empleados.</p>
         </div>
 
@@ -449,7 +439,7 @@
 
       </div>
     </section>
-    End Gallery Section -->
+   <!-- End Gallery Section -->
 
 
 

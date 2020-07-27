@@ -125,30 +125,31 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
         imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcStR_oHPFhNjf6e3-OTT-0O3kqQCMogSioopUQudgsyDtp4PxoQ&usqp=CAU"
     },
     ];
-
-    $scope.texto = [
-        ["Check our menu", "Prueba nuestro menú", "Prova el teu menu"],
-        ['Check our specials', 'Prueba nuestros platos espciales', 'Prova els nostres plats especials'],
-        ['Book a Table', 'Reserva una mesa', 'Reserva una taula'],
-        ['Language', 'Idioma', 'Idioma'],
-        ['About', 'Acerca de', 'Sobre'],
-        ['Our menu', 'Nuestro menu', 'El nostre menu'],
-        ['Events', 'Eventos', 'Esdeveniments'],
-        ['Reserve your table immediately', 'Reserva tu mesa de forma inmediata', 'Reserva la teua taula de manera immediata'],
-        ['Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!', 'Su solicitud de reserva fue enviada. Le devolveremos la llamada o le enviaremos un correo electrónico para confirmar su reserva. ¡Gracias!', 'La seua sol·licitud de reserva va ser enviada. Li retornarem la crida o li enviarem un correu electrònic per a confirmar la seua reserva. Gràcies!'],
-        ['Your online menu card', 'Tu carta de menu online', 'La teua carta de menu online'],
-        ['Cheese mix with rice', 'Mezclum de queso con arroz', 'Mescla de formatge en arros'],
-        ['Fruit desert', 'Postre de frutas', 'Postre de fruites'],
-        ['Chicken Rammen ', 'Rammen de pollo', 'Rammen de pollastre'],
-        ['All', 'Todo', 'Tot'],
-        ['Starters', 'Entrantes', 'Tapes'],
-        ['Salads', 'Ensaladas', 'Amanida'],
-        ['Sandwiches', 'Bocadillos', 'Entrepans'],
-        ['Cakes', 'Tartas', 'Pastissos'],
-        ['Drinks', 'Bebidas', 'Begudes'],
-        ['Specials', 'Especialidades', 'Especialitats'],
-    ];
-
+            $scope.texto = [
+            ["Check our menu", "Prueba nuestro menú", "Prova el teu menu"],
+            ['Check our specials', 'Prueba nuestros platos espciales', 'Prova els nostres plats especials'],
+            ['Book a Table', 'Reserva una mesa', 'Reserva una taula'],
+            ['Language', 'Idioma', 'Idioma'],
+            ['About', 'Acerca de', 'Sobre'],
+            ['Our menu', 'Nuestro menu', 'El nostre menu'],
+            ['Events', 'Eventos', 'Esdeveniments'],
+            ['Reserve your table immediately', 'Reserva tu mesa de forma inmediata', 'Reserva la teua taula de manera immediata'],
+            ['Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!', 'Su solicitud de reserva fue enviada. Le devolveremos la llamada o le enviaremos un correo electrónico para confirmar su reserva. ¡Gracias!', 'La seua sol·licitud de reserva va ser enviada. Li retornarem la crida o li enviarem un correu electrònic per a confirmar la seua reserva. Gràcies!'],
+            ['Your online menu card', 'Tu carta de menu online', 'La teua carta de menu online'],
+            ['Cheese mix with rice', 'Mezclum de queso con arroz', 'Mescla de formatge en arros'],
+            ['Fruit desert', 'Postre de frutas', 'Postre de fruites'],
+            ['Chicken Rammen ', 'Rammen de pollo', 'Rammen de pollastre'],
+            ['All', 'Todo', 'Tot'],
+            ['Starters', 'Entrantes', 'Tapes'],
+            ['Salads', 'Ensaladas', 'Amanida'],
+            ['Sandwiches', 'Bocadillos', 'Entrepans'],
+            ['Cakes', 'Tartas', 'Pastissos'],
+            ['Drinks', 'Bebidas', 'Begudes'],
+            ['Specials', 'Especialidades', 'Especialitats'],
+            ['Book a table', 'Reserva tu mesa', 'Reserva una taula'],
+            ['Check our specials plates', 'Mira nuestros platos especiales', 'Mira els nostres plats especials'],
+            ['Contact', 'Contacto', 'Contacte'],
+        ];
     $scope.idioma = 1;
 
     $http.get("http://localhost/get_idiomas.php").then(function (datos) {
@@ -163,7 +164,7 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
             restaurante.ubicacion = $sce.trustAsResourceUrl(restaurante.ubicacion);
             $http.get("http://localhost/get_imagenes.php?restaurante=" + restaurante.id).then(function (datos) {
                 $timeout(function () {
-                    restaurante.imagenes = datos.data; 
+                    restaurante.imagenes = datos.data;
                     console.log(datos.data)
                 }, 0);
             });
