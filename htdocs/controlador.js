@@ -81,7 +81,7 @@ app.controller('myCtrl', function ($scope, $sce, $http, $timeout) {
     ];
     $scope.texto = [
         ["Check our menu", "Prueba nuestro menú", "Prova el teu menu"],
-        ['Check our specials', 'Prueba nuestros platos espciales', 'Prova els nostres plats especials'],
+        ['Check our specials', 'Prueba nuestros platos especiales', 'Prova els nostres plats especials'],
         ['Book a Table', 'Reserva una mesa', 'Reserva una taula'],
         ['Language', 'Idioma', 'Idioma'],
         ['About', 'Acerca de', 'Sobre'],
